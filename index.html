@@ -6,168 +6,134 @@
 <title>Happy Birthday Kuchi ❤️</title>
 
 <style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #1a1a1a, #000);
-  color: #fff;
-  overflow-x: hidden;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:radial-gradient(circle at top,#222,#000);
+  color:#fff;
+  text-align:center;
+  overflow-x:hidden;
 }
 
 /* BACKGROUND TEXT */
-.bg-text {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  font-weight: 900;
-  letter-spacing: 6px;
-  opacity: 0.05;
-  z-index: -1;
-  pointer-events: none;
+.bg-text{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:3rem;
+  font-weight:800;
+  opacity:0.05;
+  letter-spacing:4px;
+  pointer-events:none;
 }
 
-/* SCREEN */
-.screen {
-  min-height: 100vh;
-  padding: 30px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  z-index: 5;
-  animation: fadeIn 1s ease;
+/* SCREENS */
+.screen{
+  min-height:100vh;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  animation:fadeIn .6s ease;
+}
+.hidden{display:none}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:none}
 }
 
-.hidden { display: none; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-h1 {
-  font-size: 2.3rem;
-  margin-bottom: 10px;
-}
-
-p {
-  opacity: 0.85;
-  text-align: center;
-  max-width: 500px;
-}
+h1{margin-bottom:10px}
+p{opacity:.85;max-width:320px}
 
 /* BUTTON */
-button {
-  padding: 14px 32px;
-  border-radius: 30px;
-  border: none;
-  background: #fff;
-  color: #000;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 25px;
+button{
+  padding:14px 28px;
+  border-radius:30px;
+  border:none;
+  background:#fff;
+  color:#000;
+  font-size:1rem;
+  margin-top:20px;
 }
 
 /* ICON GRID */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  margin-top: 35px;
-  width: 100%;
-  max-width: 420px;
+.icons{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+  margin-top:30px;
+  width:100%;
+  max-width:320px;
 }
-
-.card {
-  background: #ffffff14;
-  border-radius: 18px;
-  padding: 25px 15px;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.card:hover {
-  background: #ffffff28;
-  transform: translateY(-6px);
-}
-
-.icon {
-  width: 42px;
-  height: 42px;
-  margin: 0 auto 10px;
-  border-radius: 50%;
-  background: #fff;
-  color: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
+.icon{
+  background:#ffffff12;
+  padding:20px;
+  border-radius:18px;
+  font-size:1.4rem;
 }
 
 /* MODAL */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.75);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 20;
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:10;
 }
-
-.modal-content {
-  background: #0e0e0e;
-  padding: 25px;
-  border-radius: 20px;
-  width: 90%;
-  max-width: 420px;
-  animation: pop 0.4s ease;
+.modal-box{
+  background:#111;
+  padding:22px;
+  border-radius:18px;
+  max-width:340px;
+  width:100%;
+  animation:slideUp .4s ease;
 }
-
-@keyframes pop {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.close {
-  margin-top: 20px;
-  text-align: center;
-  opacity: 0.7;
-  cursor: pointer;
+@keyframes slideUp{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1;transform:none}
 }
 
 /* SLIDESHOW */
-.slide {
-  display: none;
+.slide img{
+  width:100%;
+  border-radius:14px;
+}
+.nav{
+  display:flex;
+  justify-content:space-between;
+  margin-top:10px;
 }
 
-.slide img {
-  width: 100%;
-  border-radius: 16px;
+.close{
+  margin-top:14px;
+  opacity:.7;
 }
 
-.slide.active {
-  display: block;
+/* CONFETTI */
+.confetti{
+  position:fixed;
+  width:8px;
+  height:8px;
+  top:-10px;
+  animation:fall 3s linear forwards;
 }
-
-.nav {
-  margin-top: 12px;
-  display: flex;
-  justify-content: space-between;
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);opacity:0}
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg-text">HAPPY&nbsp;BIRTHDAY&nbsp;KUCHU</div>
+<div class="bg-text">HAPPY BIRTHDAY KUCHU</div>
 
 <!-- START -->
 <div class="screen" id="start">
@@ -180,127 +146,106 @@ button {
 <div class="screen hidden" id="main">
   <h1>Happy Birthday ❤️</h1>
 
-  <div class="cards">
-    <div class="card" onclick="openNote()">
-      <div class="icon">💌</div>
-      A Note
-    </div>
-
-    <div class="card" onclick="openWhy()">
-      <div class="icon">🫶</div>
-      Why You
-    </div>
-
-    <div class="card" onclick="openMoments()">
-      <div class="icon">📸</div>
-      Our Moments
-    </div>
-
-    <div class="card" onclick="openSong()">
-      <div class="icon">🎶</div>
-      Our Song
-    </div>
+  <div class="icons">
+    <div class="icon" onclick="note()">💌 Note</div>
+    <div class="icon" onclick="why()">🫶 Why You</div>
+    <div class="icon" onclick="moments()">📸 Moments</div>
+    <div class="icon" onclick="song()">🎶 Song</div>
   </div>
 </div>
 
 <!-- MODAL -->
 <div class="modal hidden" id="modal">
-  <div class="modal-content" id="modalBox"></div>
+  <div class="modal-box" id="box"></div>
 </div>
 
 <script>
-function begin() {
+const modal=document.getElementById("modal");
+const box=document.getElementById("box");
+
+function begin(){
   document.getElementById("start").classList.add("hidden");
   document.getElementById("main").classList.remove("hidden");
+  confetti(40);
 }
 
-/* NOTE */
-function openNote() {
-  modal(`
-    <h2>HAPPY BIRTHDAY BACHU ❤️</h2>
-    <p>
-      I’M GRATEFUL TO HAVE YOU.<br><br>
-      You make my life softer, safer, and better.<br><br>
-      I LOVE YOU THE MOST 💋<br>
-      My angel, my wifey, my babyy, my mommu, my everything.
-    </p>
-  `);
+function open(html){
+  box.innerHTML=html;
+  modal.classList.remove("hidden");
+}
+function closeM(){modal.classList.add("hidden")}
+
+function note(){
+  open(`
+  <h2>HAPPY BIRTHDAY BACHU ❤️</h2>
+  <p>
+  I’M GRATEFUL TO HAVE YOU.<br>
+  YOU MAKE MY LIFE SOFTER, SAFER, AND BETTER.<br><br>
+  I LOVE YOU THE MOST 💋<br>
+  MY ANGEL. MY WIFEY. MY EVERYTHING.
+  </p>
+  <div class="close" onclick="closeM()">Close</div>
+  `)
 }
 
-/* WHY YOU */
-function openWhy() {
-  modal(`
-    <h2>Why You 🫶</h2>
-    <p>
-      Because you choose me.<br><br>
-      Because you try, even when it’s hard.<br><br>
-      Because loving you feels calm, not loud.<br><br>
-      And because my heart feels at home with you.
-    </p>
-  `);
+function why(){
+  open(`
+  <h2>Why You 🫶</h2>
+  <p>
+  I love how you try.<br>
+  I love how you care quietly.<br>
+  I love how you feel like home.<br><br>
+  Loving you feels natural.
+  </p>
+  <div class="close" onclick="closeM()">Close</div>
+  `)
 }
 
-/* MOMENTS SLIDESHOW */
-let slideIndex = 0;
-function openMoments() {
-  slideIndex = 0;
-  modal(`
-    <h2>Our Moments 📸</h2>
+/* SLIDESHOW */
+const imgs=[
+"photo1.jpg.jpeg",
+"photo2.jpg.png",
+"photo3.jpg.jpeg",
+"photo4.jpg.jpeg",
+"photo5.jpg.png",
+"photo6.jpg.png",
+"photo7.jpg.jpeg"
+];
+let i=0;
+function moments(){
+  show();
+}
+function show(){
+  open(`
+  <h2>Our Moments 📸</h2>
+  <div class="slide">
+    <img src="${imgs[i]}">
+  </div>
+  <div class="nav">
+    <button onclick="prev()">←</button>
+    <button onclick="next()">→</button>
+  </div>
+  <div class="close" onclick="closeM()">Close</div>
+  `)
+}
+function next(){i=(i+1)%imgs.length;show()}
+function prev(){i=(i-1+imgs.length)%imgs.length;show()}
 
-    ${slidesHTML()}
-
-    <div class="nav">
-      <button onclick="prev()">◀</button>
-      <button onclick="next()">▶</button>
-    </div>
-  `);
-  showSlide();
+function song(){
+  window.location.href="https://youtu.be/nyuo9-OjNNg";
 }
 
-function slidesHTML() {
-  let html = "";
-  for (let i = 1; i <= 7; i++) {
-    html += `<div class="slide"><img src="photo${i}.jpg"></div>`;
+/* CONFETTI */
+function confetti(n){
+  for(let i=0;i<n;i++){
+    const d=document.createElement("div");
+    d.className="confetti";
+    d.style.left=Math.random()*100+"vw";
+    d.style.background=`hsl(${Math.random()*360},100%,60%)`;
+    d.style.animationDuration=2+Math.random()*2+"s";
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(),4000);
   }
-  return html;
-}
-
-function showSlide() {
-  const slides = document.querySelectorAll(".slide");
-  slides.forEach(s => s.classList.remove("active"));
-  slides[slideIndex].classList.add("active");
-}
-
-function next() {
-  slideIndex = (slideIndex + 1) % 7;
-  showSlide();
-}
-
-function prev() {
-  slideIndex = (slideIndex - 1 + 7) % 7;
-  showSlide();
-}
-
-/* SONG */
-function openSong() {
-  modal(`
-    <h2>Our Song 🎶</h2>
-    <p>I wanna be yours.</p>
-    <button onclick="window.location.href='https://youtu.be/nyuo9-OjNNg'">
-      Open in YouTube
-    </button>
-  `);
-}
-
-/* MODAL HANDLER */
-function modal(content) {
-  document.getElementById("modalBox").innerHTML =
-    content + `<div class="close" onclick="closeModal()">Close</div>`;
-  document.getElementById("modal").classList.remove("hidden");
-}
-
-function closeModal() {
-  document.getElementById("modal").classList.add("hidden");
 }
 </script>
 
