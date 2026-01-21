@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Kuchi ❤️</title>
+<title>Happy Birthday Kuchu ❤️</title>
 
 <style>
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #1a1a1a, #000);
-  color: white;
-  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #111, #000);
+  color: #fff;
+  overflow: hidden;
 }
 
 /* BACKGROUND TEXT */
@@ -24,84 +24,79 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 3rem;
-  font-weight: 800;
-  opacity: 0.04;
+  font-weight: 900;
   letter-spacing: 6px;
+  opacity: 0.04;
   z-index: 0;
+  pointer-events: none;
 }
 
-/* SCREEN */
+/* SCREENS */
 .screen {
+  position: relative;
+  z-index: 2;
   min-height: 100vh;
-  padding: 30px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
-  z-index: 1;
+  text-align: center;
+  animation: fadeIn 1s ease;
 }
 
 .hidden { display: none; }
 
-h1 {
-  font-size: 2.2rem;
-  margin-bottom: 10px;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-p {
-  max-width: 600px;
-  opacity: 0.85;
-  text-align: center;
-}
+h1 { margin-bottom: 8px; }
+p { opacity: 0.85; max-width: 600px; }
 
-button {
+/* BUTTONS */
+.btn {
+  margin-top: 22px;
   padding: 14px 28px;
   border-radius: 30px;
   border: none;
-  background: white;
-  color: black;
-  font-size: 1rem;
-  margin-top: 25px;
+  background: #fff;
+  color: #000;
+  font-weight: 600;
   cursor: pointer;
 }
 
 /* ICON GRID */
-.cards {
+.icons {
+  margin-top: 30px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  margin-top: 35px;
-  max-width: 360px;
+  gap: 16px;
   width: 100%;
+  max-width: 420px;
 }
 
-.card {
+.icon {
   background: #ffffff12;
   border-radius: 18px;
-  padding: 25px;
-  text-align: center;
+  padding: 22px;
+  font-size: 1.05rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.35s;
+  transition: 0.3s;
 }
 
-.card:hover {
+.icon:hover {
   background: #ffffff25;
   transform: translateY(-6px);
-}
-
-.card span {
-  font-size: 2rem;
-  display: block;
-  margin-bottom: 8px;
 }
 
 /* MODAL */
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.85);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -109,11 +104,11 @@ button {
 }
 
 .modal-box {
-  background: #0e0e0e;
+  background: #0f0f0f;
   border-radius: 22px;
-  padding: 28px;
-  max-width: 420px;
-  width: 90%;
+  padding: 26px;
+  max-width: 92%;
+  width: 420px;
   animation: pop 0.4s ease;
 }
 
@@ -123,28 +118,21 @@ button {
 }
 
 .close {
-  margin-top: 20px;
+  margin-top: 18px;
   opacity: 0.6;
   cursor: pointer;
-  text-align: center;
 }
 
 /* SLIDESHOW */
-.slideshow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.slideshow img {
+.slide img {
   width: 100%;
-  border-radius: 14px;
+  border-radius: 16px;
 }
 
-.nav {
-  font-size: 1.8rem;
-  cursor: pointer;
-  padding: 0 10px;
+.slide-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
 }
 </style>
 </head>
@@ -157,27 +145,19 @@ button {
 <div class="screen" id="start">
   <h1>Hey kuchi 🎂</h1>
   <p>I made this just for you, wifey.</p>
-  <button onclick="begin()">Tap to Begin 🎁</button>
+  <button class="btn" onclick="begin()">Tap to Begin 🎁</button>
 </div>
 
 <!-- MAIN -->
 <div class="screen hidden" id="main">
   <h1>Happy Birthday ❤️</h1>
-  <p>Every day feels warmer because you exist.</p>
+  <p>My babu. My champa. My golgappa.</p>
 
-  <div class="cards">
-    <div class="card" onclick="openNote()">
-      <span>💌</span> A Note
-    </div>
-    <div class="card" onclick="openWhy()">
-      <span>🫶</span> Why You
-    </div>
-    <div class="card" onclick="openGallery()">
-      <span>📸</span> Our Moments
-    </div>
-    <div class="card" onclick="openMusic()">
-      <span>🎶</span> Our Song
-    </div>
+  <div class="icons">
+    <div class="icon" onclick="openNote()">💌 A Note</div>
+    <div class="icon" onclick="openWhy()">🫶 Why You</div>
+    <div class="icon" onclick="openMoments()">📸 Our Moments</div>
+    <div class="icon" onclick="openSong()">🎶 Our Song</div>
   </div>
 </div>
 
@@ -187,8 +167,9 @@ button {
 </div>
 
 <script>
-let slide = 0;
-const photos = [
+let slideIndex = 0;
+
+const slides = [
   "photo1.jpg.jpeg",
   "photo2.jpg.png",
   "photo3.jpg.jpeg",
@@ -203,70 +184,83 @@ function begin() {
   document.getElementById("main").classList.remove("hidden");
 }
 
+function openModal(html) {
+  document.getElementById("modalBox").innerHTML = html;
+  document.getElementById("modal").classList.remove("hidden");
+}
+
 function closeModal() {
   document.getElementById("modal").classList.add("hidden");
 }
 
+/* NOTE */
 function openNote() {
-  showModal(`
+  openModal(`
     <h2>HAPPY BIRTHDAY BACHU ❤️</h2>
     <p>
       I’M GRATEFUL TO HAVE YOU.<br><br>
       You make my life softer, safer, and better.<br><br>
       I LOVE YOU THE MOST 💋<br>
-      My angel, wifey, baby, mommu, everything.
+      My angel wifey. My baby. My everything.
     </p>
     <div class="close" onclick="closeModal()">Close</div>
   `);
 }
 
+/* WHY YOU */
 function openWhy() {
-  showModal(`
+  openModal(`
     <h2>Why You 🫶</h2>
     <p>
-      I love how you try.<br><br>
-      I love how you care quietly.<br><br>
-      I love how you make effort even when it’s hard.<br><br>
-      That’s why you. Always you.
+      I admire how you try for me even when expressing yourself isn’t easy.<br><br>
+      I love how your presence calms me without saying a word.<br><br>
+      I love the way you care quietly, deeply, genuinely.<br><br>
+      Loving you feels natural — like home.
     </p>
     <div class="close" onclick="closeModal()">Close</div>
   `);
 }
 
-function openGallery() {
-  slide = 0;
+/* MOMENTS SLIDESHOW */
+function openMoments() {
+  slideIndex = 0;
   renderSlide();
 }
 
 function renderSlide() {
-  showModal(`
+  openModal(`
     <h2>Our Moments 📸</h2>
-    <div class="slideshow">
-      <div class="nav" onclick="prev()">❮</div>
-      <img src="${photos[slide]}">
-      <div class="nav" onclick="next()">❯</div>
+    <div class="slide">
+      <img src="${slides[slideIndex]}">
+    </div>
+    <div class="slide-controls">
+      <button class="btn" onclick="prev()">◀</button>
+      <button class="btn" onclick="next()">▶</button>
     </div>
     <div class="close" onclick="closeModal()">Close</div>
   `);
 }
 
-function prev() {
-  slide = (slide - 1 + photos.length) % photos.length;
-  renderSlide();
-}
-
 function next() {
-  slide = (slide + 1) % photos.length;
+  slideIndex = (slideIndex + 1) % slides.length;
   renderSlide();
 }
 
-function openMusic() {
-  window.location.href = "https://youtu.be/nyuo9-OjNNg?si=yiPuatMHvACqUccC";
+function prev() {
+  slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+  renderSlide();
 }
 
-function showModal(content) {
-  document.getElementById("modalBox").innerHTML = content;
-  document.getElementById("modal").classList.remove("hidden");
+/* SONG */
+function openSong() {
+  openModal(`
+    <h2>Our Song 🎶</h2>
+    <p>I wanna be yours.</p>
+    <button class="btn" onclick="window.open('https://youtu.be/nyuo9-OjNNg','_blank')">
+      Open in YouTube ▶
+    </button>
+    <div class="close" onclick="closeModal()">Close</div>
+  `);
 }
 </script>
 
