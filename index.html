@@ -6,121 +6,60 @@
 <title>Happy Birthday Kuchi ❤️</title>
 
 <style>
-* { box-sizing: border-box; }
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: radial-gradient(circle at top, #1a1a1a, #000);
   color: #fff;
-  overflow-x: hidden;
 }
 
-/* BACKGROUND TEXT */
-.bg-text {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12vw;
-  font-weight: 800;
-  color: rgba(255,255,255,0.03);
-  text-align: center;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* SCREENS */
 .screen {
   min-height: 100vh;
-  padding: 24px;
-  display: flex;
+  display: none;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  position: relative;
-  z-index: 1;
+  padding: 24px;
 }
 
-.hidden { display: none; }
+.screen.active { display: flex; }
 
-h1 {
-  font-size: 2.2rem;
-  margin-bottom: 10px;
-}
+h1 { font-size: 2.2rem; margin-bottom: 10px; }
+p { opacity: 0.85; max-width: 520px; }
 
-p {
-  opacity: 0.85;
-  max-width: 500px;
-}
-
-/* BUTTON */
 button {
   margin-top: 24px;
-  padding: 14px 32px;
+  padding: 14px 34px;
   border-radius: 999px;
   border: none;
-  background: #fff;
-  color: #000;
   font-size: 1rem;
   font-weight: 600;
 }
 
-/* ICON GRID */
-.actions {
+.menu {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+  margin-top: 32px;
   width: 100%;
   max-width: 420px;
-  margin-top: 32px;
 }
 
-.action {
-  background: rgba(255,255,255,0.08);
+.card {
+  background: rgba(255,255,255,0.1);
   border-radius: 18px;
-  padding: 20px;
-  text-align: center;
+  padding: 22px;
   font-weight: 600;
 }
 
-/* MODAL */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-}
-
-.modal-box {
-  background: #111;
-  border-radius: 20px;
-  padding: 24px;
-  max-width: 90%;
-  animation: fadeUp .3s ease;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.close {
-  margin-top: 16px;
-  opacity: .7;
-}
-
-/* SLIDESHOW */
+/* SLIDER */
 .slider {
   display: flex;
   overflow-x: auto;
+  gap: 14px;
   scroll-snap-type: x mandatory;
-  gap: 12px;
+  margin-top: 20px;
 }
 
 .slider img {
@@ -135,85 +74,67 @@ button {
 
 <body>
 
-<div class="bg-text">HAPPY BIRTHDAY<br>KUCHU</div>
-
 <!-- START -->
-<div class="screen" id="start">
+<div class="screen active" id="start">
   <h1>Hey kuchi 🎂</h1>
   <p>I made this just for you, wifey.</p>
-  <button onclick="start()">Tap to Begin 🎁</button>
+  <button onclick="go('main')">Tap to Begin 🎁</button>
 </div>
 
 <!-- MAIN -->
-<div class="screen hidden" id="main">
+<div class="screen" id="main">
   <h1>Happy Birthday ❤️</h1>
 
-  <div class="actions">
-    <div class="action" onclick="openNote()">💌 Note</div>
-    <div class="action" onclick="openWhy()">🫶 Why You</div>
-    <div class="action" onclick="openMoments()">📸 Moments</div>
-    <div class="action" onclick="openSong()">🎶 Song</div>
+  <div class="menu">
+    <div class="card" onclick="go('note')">💌 Note</div>
+    <div class="card" onclick="go('why')">🫶 Why You</div>
+    <div class="card" onclick="go('moments')">📸 Moments</div>
+    <div class="card" onclick="openSong()">🎶 Song</div>
   </div>
 </div>
 
-<!-- MODAL -->
-<div class="modal hidden" id="modal">
-  <div class="modal-box" id="modalBox"></div>
+<!-- NOTE -->
+<div class="screen" id="note">
+  <h1>HAPPY BIRTHDAY BACHU ❤️</h1>
+  <p>
+    I'M GRATEFUL TO HAVE YOU.<br><br>
+    YOU MAKE MY LIFE SOFTER, SAFER, AND BETTER.<br><br>
+    I LOVE YOU THE MOST 💋
+  </p>
+  <button onclick="go('main')">Back</button>
+</div>
+
+<!-- WHY -->
+<div class="screen" id="why">
+  <h1>Why You 🫶</h1>
+  <p>
+    I love how you try for me.<br><br>
+    I love how you stay even when it’s hard.<br><br>
+    I love how you feel like home.
+  </p>
+  <button onclick="go('main')">Back</button>
+</div>
+
+<!-- MOMENTS -->
+<div class="screen" id="moments">
+  <h1>Our Moments 📸</h1>
+  <div class="slider">
+    <img src="photo1.jpg.jpeg">
+    <img src="photo2.jpg.png">
+    <img src="photo3.jpg.jpeg">
+    <img src="photo4.jpg.jpeg">
+    <img src="photo5.jpg.png">
+    <img src="photo6.jpg.png">
+    <img src="photo7.jpg.jpeg">
+  </div>
+  <p>Swipe →</p>
+  <button onclick="go('main')">Back</button>
 </div>
 
 <script>
-function start() {
-  document.getElementById("start").classList.add("hidden");
-  document.getElementById("main").classList.remove("hidden");
-}
-
-function show(html) {
-  document.getElementById("modalBox").innerHTML = html;
-  document.getElementById("modal").classList.remove("hidden");
-}
-
-function closeModal() {
-  document.getElementById("modal").classList.add("hidden");
-}
-
-function openNote() {
-  show(`
-    <h2>HAPPY BIRTHDAY BACHU ❤️</h2>
-    <p>
-      I'M GRATEFUL TO HAVE YOU.<br><br>
-      YOU MAKE MY LIFE SOFTER, SAFER, AND BETTER.<br><br>
-      I LOVE YOU THE MOST 💋
-    </p>
-    <div class="close" onclick="closeModal()">Close</div>
-  `);
-}
-
-function openWhy() {
-  show(`
-    <h2>Why You 🫶</h2>
-    <p>
-      I love how you try for me.<br><br>
-      I love how you stay even when it’s hard.<br><br>
-      I love how you feel like home.
-    </p>
-    <div class="close" onclick="closeModal()">Close</div>
-  `);
-}
-
-function openMoments() {
-  show(`
-    <h2>Our Moments 📸</h2>
-    <div class="slider">
-      <img src="photo1.jpg.jpeg">
-      <img src="photo2.jpg.png">
-      <img src="photo3.jpg.jpeg">
-      <img src="photo4.jpg.jpeg">
-      <img src="photo5.jpg.png">
-      <img src="photo6.jpg.png">
-      <img src="photo7.jpg.jpeg">
-    </div>
-    <div class="close" onclick="closeModal()">Swipe → Close</div>
-  `);
+function go(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
 function openSong() {
