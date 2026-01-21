@@ -1,251 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Happy Birthday Kuchi ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday ❤️</title>
 
 <style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #0b0b0b, #1a1a1a);
-  color: #fff;
-  text-align: center;
-  overflow-x: hidden;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#0b0b0b,#1a1a1a);
+  color:#fff;
+  text-align:center;
 }
 
-.screen {
-  min-height: 100vh;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.screen{
+  min-height:100vh;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 }
 
-.hidden { display: none; }
+.hidden{display:none}
 
-h1 {
-  font-size: 2.2rem;
-  margin-bottom: 10px;
+h1{font-size:2.3rem;margin-bottom:10px}
+p{opacity:.9;max-width:600px;line-height:1.6}
+
+button{
+  padding:15px 32px;
+  border-radius:40px;
+  border:none;
+  background:#fff;
+  color:#000;
+  font-size:1rem;
+  margin-top:25px;
 }
 
-p {
-  opacity: 0.9;
-  max-width: 600px;
-  line-height: 1.6;
+.cards{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  max-width:420px;
+  width:100%;
+  margin-top:30px;
 }
 
-button {
-  padding: 15px 30px;
-  border-radius: 40px;
-  border: none;
-  background: #fff;
-  color: #000;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 25px;
+.card{
+  background:#ffffff15;
+  padding:18px;
+  border-radius:18px;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  max-width: 420px;
-  width: 100%;
-  margin-top: 30px;
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:10;
 }
 
-.card {
-  background: #ffffff14;
-  padding: 18px;
-  border-radius: 18px;
-  cursor: pointer;
-  transition: 0.3s;
+.modal-content{
+  background:#111;
+  padding:24px;
+  border-radius:18px;
+  max-width:420px;
+  width:100%;
+  animation:pop .35s ease;
 }
 
-.card:active {
-  transform: scale(0.96);
+@keyframes pop{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:none}
 }
 
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  z-index: 10;
+.close{margin-top:18px;opacity:.7}
+
+/* slider */
+.slider{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+}
+.slider img{
+  width:220px;
+  border-radius:14px;
+  scroll-snap-align:center;
 }
 
-.modal-content {
-  background: #111;
-  padding: 24px;
-  border-radius: 18px;
-  max-width: 420px;
-  width: 100%;
-  animation: pop 0.35s ease;
+/* confetti */
+.confetti{
+  position:fixed;
+  width:10px;
+  height:10px;
+  top:-10px;
+  animation:fall 3s linear forwards;
+  z-index:20;
 }
-
-@keyframes pop {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.close {
-  margin-top: 18px;
-  font-size: 0.9rem;
-  opacity: 0.7;
-  cursor: pointer;
-}
-
-/* SLIDER */
-.slider {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-}
-
-.slider img {
-  width: 220px;
-  border-radius: 14px;
-  scroll-snap-align: center;
-}
-
-/* CONFETTI */
-.confetti {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  top: -10px;
-  animation: fall 3s linear forwards;
-  z-index: 20;
-}
-
-@keyframes fall {
-  to {
-    transform: translateY(110vh) rotate(360deg);
-    opacity: 0;
-  }
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);opacity:0}
 }
 </style>
 </head>
 
 <body>
 
-<!-- START -->
 <div class="screen" id="start">
   <h1>Hey kuchi 🎂</h1>
   <p>I made this just for you, wifey.</p>
   <button onclick="begin()">Tap to Begin 🎁</button>
 </div>
 
-<!-- MAIN -->
 <div class="screen hidden" id="main">
   <h1>Happy Birthday ❤️</h1>
-  <p id="birthdayText"></p>
+  <p id="text"></p>
 
   <div class="cards">
     <div class="card" onclick="openModal('note')">💌 A Note</div>
-    <div class="card" onclick="openModal('admire')">🫶 Why You</div>
+    <div class="card" onclick="openModal('why')">🫶 Why You</div>
     <div class="card" onclick="openModal('gallery')">📸 Our Moments</div>
     <div class="card" onclick="openModal('music')">🎶 Our Song</div>
   </div>
 </div>
 
-<!-- MODAL -->
 <div class="modal hidden" id="modal">
-  <div class="modal-content" id="modalBox"></div>
+  <div class="modal-content" id="box"></div>
 </div>
 
 <script>
-function begin() {
-  document.getElementById("start").classList.add("hidden");
-  document.getElementById("main").classList.remove("hidden");
-  launchConfetti(50);
-
-  document.getElementById("birthdayText").innerText =
-    "Every day feels softer, warmer, and better because you exist.";
+function begin(){
+  document.getElementById('start').classList.add('hidden');
+  document.getElementById('main').classList.remove('hidden');
+  document.getElementById('text').innerText =
+    "Every day feels better because you exist.";
+  confetti(40);
 }
 
-function openModal(type) {
-  const modal = document.getElementById("modal");
-  const box = document.getElementById("modalBox");
+function openModal(t){
+  const m=document.getElementById('modal');
+  const b=document.getElementById('box');
 
-  if (type === "note") {
-    box.innerHTML = `
-      <h2>HAPPY BIRTHDAY BACHU 🎂</h2>
-      <p>
-        I’m so grateful to have you.<br><br>
-        You’re my comfort, my smile, my safe place.<br><br>
-        I LOVE YOU THE MOST 💋
-      </p>
-      <div class="close" onclick="closeModal()">Close</div>`;
+  if(t==='note'){
+    b.innerHTML=`
+    <h2>HAPPY BIRTHDAY BACHU 🎂</h2>
+    <p>
+    I’M GRATEFUL TO HAVE YOU.<br><br>
+    You’re my peace, my comfort, my home.<br><br>
+    I LOVE YOU THE MOST 💋 YOURE MERI JAAAN PYARI SI
+    </p>
+    <div class="close" onclick="closeModal()">Close</div>`;
   }
 
-  if (type === "admire") {
-    box.innerHTML = `
-      <h2>Why You 🫶</h2>
-      <p>
-        I love how you try for me.<br>
-        I love how you care quietly.<br>
-        I love how you stay.<br><br>
-        Every little effort of yours means everything to me.
-      </p>
-      <div class="close" onclick="closeModal()">Close</div>`;
+  if(t==='why'){
+    b.innerHTML=`
+    <h2>Why You 🫶</h2>
+    <p>
+    I love how you try.<br>
+    I love how you care quietly.<br>
+    I love how you stay I LOVE SAB HI TU PERFECTO HAI my angel.<br><br>
+    Every effort of yours means everything to me.
+    </p>
+    <div class="close" onclick="closeModal()">Close</div>`;
   }
 
-  if (type === "gallery") {
-    box.innerHTML = `
-      <h2>Our Moments 📸</h2>
-      <div class="slider">
-        <img src="photo1.jpg.jpeg">
-        <img src="photo2.jpg.png">
-        <img src="photo3.jpg.jpeg">
-        <img src="photo4.jpg.jpeg">
-        <img src="photo5.jpg.png">
-        <img src="photo6.jpg.png">
-        <img src="photo7.jpg.jpeg">
-      </div>
-      <div class="close" onclick="closeModal()">Close</div>`;
+  if(t==='gallery'){
+    b.innerHTML=`
+    <h2>Our Moments 📸</h2>
+    <div class="slider">
+      <img src="photo1.jpg.jpeg">
+      <img src="photo2.jpg.png">
+      <img src="photo3.jpg.jpeg">
+      <img src="photo4.jpg.jpeg">
+      <img src="photo5.jpg.png">
+      <img src="photo6.jpg.png">
+      <img src="photo7.jpg.jpeg">
+    </div>
+    <div class="close" onclick="closeModal()">Close</div>`;
   }
 
-  if (type === "music") {
-    box.innerHTML = `
-      <h2>Our Song 🎶</h2>
-      <p>Tap below, it’ll open YouTube ❤️</p>
-      <button onclick="openSong()">Play Song</button>
-      <div class="close" onclick="closeModal()">Close</div>`;
+  if(t==='music'){
+    b.innerHTML=`
+    <h2>Our Song 🎶</h2>
+    <p>Opens YouTube ❤️</p>
+    <button onclick="song()">Play</button>
+    <div class="close" onclick="closeModal()">Close</div>`;
   }
 
-  modal.classList.remove("hidden");
+  m.classList.remove('hidden');
 }
 
-function closeModal() {
-  document.getElementById("modal").classList.add("hidden");
+function closeModal(){
+  document.getElementById('modal').classList.add('hidden');
 }
 
-function openSong() {
+function song(){
   window.open(
     "https://youtu.be/nyuo9-OjNNg?si=yiPuatMHvACqUccC",
     "_blank"
   );
 }
 
-function launchConfetti(count) {
-  for (let i = 0; i < count; i++) {
-    const c = document.createElement("div");
-    c.className = "confetti";
-    c.style.left = Math.random() * 100 + "vw";
-    c.style.background = `hsl(${Math.random()*360},100%,60%)`;
-    c.style.animationDuration = (2 + Math.random()*2) + "s";
+function confetti(n){
+  for(let i=0;i<n;i++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=`hsl(${Math.random()*360},100%,60%)`;
+    c.style.animationDuration=(2+Math.random()*2)+'s';
     document.body.appendChild(c);
-    setTimeout(() => c.remove(), 4000);
+    setTimeout(()=>c.remove(),4000);
   }
 }
 </script>
