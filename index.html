@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Kuchi ❤️</title>
 
 <style>
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: linear-gradient(135deg, #0b0b0b, #1a1a1a);
   color: white;
   text-align: center;
@@ -16,19 +16,27 @@ body {
 
 .screen {
   min-height: 100vh;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 24px;
+  animation: fadeIn 0.8s ease;
 }
 
 .hidden { display: none; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 button {
   padding: 14px 30px;
   border-radius: 30px;
   border: none;
+  background: white;
+  color: black;
   font-size: 16px;
   cursor: pointer;
 }
@@ -38,24 +46,61 @@ button {
   grid-template-columns: repeat(2, 1fr);
   gap: 15px;
   margin-top: 25px;
+  width: 100%;
+  max-width: 500px;
 }
 
 .card {
-  background: #ffffff15;
+  background: #ffffff18;
   padding: 18px;
   border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s;
 }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-top: 15px;
+.card:hover {
+  transform: translateY(-6px);
+  background: #ffffff2a;
 }
 
-.gallery img {
-  width: 100%;
-  border-radius: 12px;
+/* SLIDER */
+.slider {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  scroll-snap-type: x mandatory;
+}
+
+.slider img {
+  width: 220px;
+  border-radius: 14px;
+  scroll-snap-align: center;
+  flex-shrink: 0;
+}
+
+/* MODAL */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-box {
+  background: #111;
+  padding: 22px;
+  border-radius: 18px;
+  max-width: 420px;
+  animation: fadeIn 0.4s ease;
+}
+
+.close {
+  margin-top: 16px;
+  opacity: 0.7;
+  cursor: pointer;
 }
 </style>
 </head>
@@ -65,7 +110,7 @@ button {
 <!-- START -->
 <div class="screen" id="start">
   <h1>Hey kuchi 🎂</h1>
-  <p>I made this for you, wifey.</p>
+  <p>I made this just for you, wifey.</p>
   <button onclick="begin()">Tap to Begin 🎁</button>
 </div>
 
@@ -75,57 +120,87 @@ button {
   <p id="msg"></p>
 
   <div class="cards">
-    <div class="card" onclick="show('note')">💌 A Note</div>
-    <div class="card" onclick="show('admire')">🫶 Why You</div>
-    <div class="card" onclick="show('gallery')">📸 Our Moments</div>
-    <div class="card" onclick="play()">🎶 Our Song</div>
+    <div class="card" onclick="openModal('note')">💌 A Note</div>
+    <div class="card" onclick="openModal('why')">🫶 Why You</div>
+    <div class="card" onclick="openModal('gallery')">📸 Our Moments</div>
+    <div class="card" onclick="openSong()">🎶 Our Song</div>
   </div>
-
-  <div id="box"></div>
 </div>
 
-<!-- AUDIO (NO AUTOPLAY) -->
-<audio id="song">
-  <source src="https://audio.jukehost.co.uk/7k1mHk9k6yU1d1i0lR2H9wHf2c7uY8H1" type="audio/mp3">
-</audio>
+<!-- MODAL -->
+<div class="modal hidden" id="modal">
+  <div class="modal-box" id="box"></div>
+</div>
 
 <script>
 function begin() {
-  document.getElementById("start").classList.add("hidden");
-  document.getElementById("main").classList.remove("hidden");
+  start.classList.add("hidden");
+  main.classList.remove("hidden");
 
   const d = new Date();
-  if (d.getDate() === 22 && d.getMonth() === 0) {
-    msg.innerText = "Happy Birthday my babu, champa, golgappa 💕";
-  } else {
-    msg.innerText = "Every day feels softer because of you, wifey.";
-  }
+  msg.innerText =
+    (d.getDate() === 22 && d.getMonth() === 0)
+    ? "Today is YOUR day, my babu 💕"
+    : "Every day feels softer because you exist.";
 }
 
-function show(type) {
-  const box = document.getElementById("box");
+function openModal(type) {
+  modal.classList.remove("hidden");
+
   if (type === "note") {
-    box.innerHTML = `<p>Happy Birthday my kuchi 💗<br>You are my calm.</p>`;
+    box.innerHTML = `
+      <h2>HAPPY BIRTHDAY BACHU 🎂❤️</h2>
+      <p>
+        I AM SO GRATEFUL TO HAVE YOU IN MY LIFE.<br><br>
+        You make my days lighter, my heart calmer,
+        and my life so much warmer.<br><br>
+        I LOVE YOU THE MOST 💋
+      </p>
+      <div class="close" onclick="closeModal()">Close</div>`;
   }
-  if (type === "admire") {
-    box.innerHTML = `<p>I admire how you try for me even when you aren’t expressive.</p>`;
+
+  if (type === "why") {
+    box.innerHTML = `
+      <h2>Why You 🫶</h2>
+      <p>
+        I admire how you try for me even when it’s hard to express yourself.<br><br>
+        I love how you stay, how you care quietly,
+        and how your presence alone comforts me.<br><br>
+        You don’t have to be loud to be special —
+        your effort speaks for itself.
+      </p>
+      <div class="close" onclick="closeModal()">Close</div>`;
   }
+
   if (type === "gallery") {
     box.innerHTML = `
-    <div class="gallery">
-      <img src="photo1.jpg.jpeg">
-      <img src="photo2.jpg.png">
-      <img src="photo3.jpg.jpeg">
-      <img src="photo4.jpg.jpeg">
-      <img src="photo5.jpg.png">
-      <img src="photo6.jpg.png">
-      <img src="photo7.jpg.jpeg">
-    </div>`;
+      <h2>Our Moments 📸</h2>
+      <div class="slider">
+        <img src="photo1.jpg.jpeg">
+        <img src="photo2.jpg.png">
+        <img src="photo3.jpg.jpeg">
+        <img src="photo4.jpg.jpeg">
+        <img src="photo5.jpg.png">
+        <img src="photo6.jpg.png">
+        <img src="photo7.jpg.jpeg">
+      </div>
+      <div class="close" onclick="closeModal()">Close</div>`;
   }
 }
 
-function play() {
-  document.getElementById("song").play();
+function closeModal() {
+  modal.classList.add("hidden");
+}
+
+function openSong() {
+  window.location.href =
+    "youtube://nyuo9-OjNNg";
+  setTimeout(() => {
+    window.open(
+      "https://youtu.be/nyuo9-OjNNg?si=yiPuatMHvACqUccC",
+      "_blank"
+    );
+  }, 500);
 }
 </script>
 
