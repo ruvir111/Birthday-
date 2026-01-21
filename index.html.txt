@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Kuchi ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0b0b0b, #1a1a1a);
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    .screen {
+      min-height: 100vh;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hidden { display: none; }
+
+    h1 { font-size: 2.2rem; margin-bottom: 10px; }
+    p { opacity: 0.85; max-width: 650px; }
+
+    button {
+      padding: 14px 28px;
+      border-radius: 30px;
+      border: none;
+      background: #fff;
+      color: #000;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 25px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+      max-width: 500px;
+      width: 100%;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: #ffffff12;
+      padding: 18px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      background: #ffffff25;
+      transform: translateY(-6px);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .gallery img:hover { transform: scale(1.05); }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 5;
+    }
+
+    .modal-content {
+      background: #111;
+      padding: 25px;
+      border-radius: 18px;
+      max-width: 420px;
+      animation: pop 0.4s ease;
+    }
+
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal img {
+      width: 100%;
+      border-radius: 14px;
+    }
+
+    .close {
+      margin-top: 18px;
+      font-size: 0.85rem;
+      opacity: 0.7;
+      cursor: pointer;
+    }
+
+    /* CONFETTI */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      top: -10px;
+      animation: fall 3s linear forwards;
+      z-index: 10;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- START SCREEN -->
+  <div class="screen" id="start">
+    <h1>Hey kuchi 🎂</h1>
+    <p>I made this for you, wifey.</p>
+    <button onclick="begin()">Tap to Begin 🎁</button>
+  </div>
+
+  <!-- MAIN SCREEN -->
+  <div class="screen hidden" id="main">
+    <h1>Happy Birthday ❤️</h1>
+    <p id="birthdayText"></p>
+
+    <div class="cards">
+      <div class="card" onclick="openModal('note')">💌 A Note</div>
+      <div class="card" onclick="openModal('admire')">🫶 Why You</div>
+      <div class="card" onclick="openModal('gallery')">📸 Our Moments</div>
+      <div class="card" onclick="openModal('music')">🎶 Our Song</div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal hidden" id="modal">
+    <div class="modal-content" id="modalBox"></div>
+  </div>
+
+  <!-- MUSIC -->
+  <iframe
+    id="music"
+    width="0"
+    height="0"
+    src="https://www.youtube.com/embed/nyuo9-OjNNg?autoplay=1&mute=1"
+    allow="autoplay">
+  </iframe>
+
+  <script>
+    function begin() {
+      document.getElementById("start").classList.add("hidden");
+      document.getElementById("main").classList.remove("hidden");
+
+      launchConfetti(40);
+
+      const d = new Date();
+      const isBday = d.getDate() === 22 && d.getMonth() === 0;
+
+      if (isBday) {
+        document.getElementById("birthdayText").innerText =
+          "Happy Birthday my babu, my champa, my golgappa 💕 Today is YOUR day.";
+        setTimeout(() => launchConfetti(80), 800);
+      } else {
+        document.getElementById("birthdayText").innerText =
+          "Every day feels softer knowing you exist, wifey.";
+      }
+    }
+
+    function openModal(type) {
+      const modal = document.getElementById("modal");
+      const box = document.getElementById("modalBox");
+
+      if (type === "note") {
+        box.innerHTML = `
+          <h2>For You 💌</h2>
+          <p>
+            Happy Birthday my kuchi.<br>
+            You don’t even realise how deeply you affect me.
+            You make life feel calmer, safer, warmer.
+          </p>
+          <div class="close" onclick="closeModal()">Close</div>`;
+      }
+
+      if (type === "admire") {
+        box.innerHTML = `
+          <h2>Why You 🫶</h2>
+          <p>
+            I admire how you try for me,
+            even when expressing yourself isn’t easy.
+            That quiet effort means everything to me.
+          </p>
+          <div class="close" onclick="closeModal()">Close</div>`;
+      }
+
+      if (type === "gallery") {
+        box.innerHTML = `
+          <h2>Our Moments 📸</h2>
+          <div class="gallery">
+            <img src="photo1.jpg" onclick="view(this.src)">
+            <img src="photo2.jpg" onclick="view(this.src)">
+            <img src="photo3.jpg" onclick="view(this.src)">
+            <img src="photo4.jpg" onclick="view(this.src)">
+            <img src="photo5.jpg" onclick="view(this.src)">
+            <img src="photo6.jpg" onclick="view(this.src)">
+            <img src="photo7.jpg" onclick="view(this.src)">
+          </div>
+          <div class="close" onclick="closeModal()">Close</div>`;
+      }
+
+      if (type === "music") {
+        box.innerHTML = `
+          <h2>Our Song 🎶</h2>
+          <p>“I wanna be yours.”</p>
+          <button onclick="play()">Play Song</button>
+          <div class="close" onclick="closeModal()">Close</div>`;
+      }
+
+      modal.classList.remove("hidden");
+    }
+
+    function closeModal() {
+      document.getElementById("modal").classList.add("hidden");
+    }
+
+    function view(src) {
+      document.getElementById("modalBox").innerHTML =
+        '<img src="' + src + '">' +
+        '<div class="close" onclick="closeModal()">Close</div>';
+    }
+
+    function play() {
+      document.getElementById("music").src =
+        "https://www.youtube.com/embed/nyuo9-OjNNg?autoplay=1";
+    }
+
+    function launchConfetti(count) {
+      for (let i = 0; i < count; i++) {
+        const conf = document.createElement("div");
+        conf.className = "confetti";
+        conf.style.left = Math.random() * 100 + "vw";
+        conf.style.background =
+          "hsl(" + Math.random() * 360 + ",100%,60%)";
+        conf.style.animationDuration =
+          (2 + Math.random() * 2) + "s";
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 4000);
+      }
+    }
+  </script>
+
+</body>
+</html>
